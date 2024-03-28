@@ -2,9 +2,10 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-console.log("from auth", process.env.NEXT_PUBLIC_URL);
-
-export const authOptions = {
+export const {
+  handlers: { GET, POST },
+  auth,
+} = NextAuth({
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
@@ -63,9 +64,14 @@ export const authOptions = {
     async signOut() {
       return "/signin";
     },
+
+    async redirect({ url, baseUrl }) {
+      console.log(url, baseUrl);
+      return baseUrl;
+    },
   },
-};
+});
 
-const handler = NextAuth(authOptions);
+// const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+// export { handler as GET, handler as POST };

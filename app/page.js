@@ -1,6 +1,9 @@
 import HomePageButtonClick from "@/components/HomePageButtonClick";
+import { auth } from "./api/auth/[...nextauth]/route";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+  console.log(session?.user);
   return (
     <main className="text-center flex flex-col items-center gap-4">
       <h1 className="text-5xl font-bold">Hello there</h1>

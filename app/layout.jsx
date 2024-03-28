@@ -1,8 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { auth } from "./api/auth/[...nextauth]/route";
 import AuthProvider from "@/lib/authClientProvider";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
@@ -14,7 +13,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   //
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   return (
     <html lang="en">
